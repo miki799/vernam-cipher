@@ -20,26 +20,28 @@ func main() {
 
 	fmt.Printf("bit len of message: %v\n", bits)
 
+	fmt.Println("Key generation...")
 	key, err := vernam.CreateKey(bits)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
+	fmt.Println("Encryption...")
 	cryptogram, err := vernam.Encrypt(message, key)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Printf("cryptogram: %v\n", cryptogram)
-
+	fmt.Println("Decryption...")
 	encryptedMessage, err := vernam.Decrypt(cryptogram, key)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
+	fmt.Println("Verification...")
 	result := vernam.Verify(message, encryptedMessage)
 	if result {
 		fmt.Println("Vernam alghoritm works! Messages are the same!")

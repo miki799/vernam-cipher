@@ -36,17 +36,16 @@ func Encrypt(message string, key []*big.Int) ([]*big.Int, error) {
 	cryptogram := make([]*big.Int, 0)
 
 	for i := 0; i < bits; i++ {
-		tmp := new(big.Int)
-		tmp.Add(messageBitsInt[i], key[i])
-		tmp.Mod(tmp, bbs.TWO)
-		cryptogram = append(cryptogram, tmp)
+		c := new(big.Int)
+		c.Add(messageBitsInt[i], key[i])
+		c.Mod(c, bbs.TWO)
+		cryptogram = append(cryptogram, c)
 	}
 
 	return cryptogram, nil
 }
 
 func Decrypt(cryptogram, key []*big.Int) (string, error) {
-
 	bits := len(cryptogram)
 
 	if len(cryptogram) != len(key) {
